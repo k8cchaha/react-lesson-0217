@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+  <h1>Axios</h1>
+  <div id="root"></div>
+
+  <script type="text/babel">
+
+    axios.get('https://randomuser.me/api')
+    .then((res)=>{
+      console.log('1')
+      const { seed } = res.data.info
+      return axios.get(`https://randomuser.me/api?seed=${seed}`)
+    })
+    .then((res)=>{
+      console.log('2')
+    })
+
+    const asyncFn = async ()=>{
+      console.log('Yo')
+      const response = await axios.get('https://randomuser.me/api')
+      console.log('3')
+      const { seed } = response.data.info
+      console.log('Yo Mid')
+      const response2 = await axios.get(`https://randomuser.me/api?seed=${seed}`)
+      console.log('4')
+      console.log('Yo End')
+    }
+
+    asyncFn()
+
+    function App() {
+      return <>
+        <h2>React</h2>
+      </>
+    }
+
+    ReactDOM
+      .createRoot(document.getElementById('root'))
+      .render(<App />)
+
+  </script>
+
+  <link rel="stylesheet" href="/css/all.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+</body>
+</html>
