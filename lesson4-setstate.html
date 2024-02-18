@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <h1>Hello React</h1>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const App2 = (props) => {
+      const { useState } = React
+      const [todo, setTodo] = useState("")
+      const [list, setList] = useState([])
+
+      const updateTodo = (e) => {
+        setTodo(e.target.value)
+      }
+
+      const addTodo = () => {
+        setList([...list, todo])
+        setTodo("")
+      }
+
+      const removeTodo = () => {
+        setList(list.filter((item, i)=>{
+          return i !== list.length-1
+        }))
+      }
+
+      return <>
+        <input type="text" value={ todo } onChange={ updateTodo } />
+        <button type="button" onClick={ addTodo }>Add</button> 
+        <ul>
+          { list.map((item, i)=>{
+            return <li key={ i }>{ item }</li>
+          })}  
+        </ul>
+        <button type="button" onClick={ removeTodo }>RemoveLast</button>
+        { props.children }
+      </>
+    }
+
+    const App = () => {
+      const { useState } = React
+      const [num, setNum] = useState(0)
+      const handleAdd = () => {
+        setNum(num+1)
+      } 
+
+      return (<>
+          <button type="button" onClick={ handleAdd }>Add</button>
+          <h2>{ num }</h2>
+          <div>
+            <App2>
+              <h3>The End</h3>
+            </App2>  
+          </div>
+        </>
+      );
+    };
+
+    ReactDOM
+      .createRoot(document.getElementById('root'))
+      .render(<App />)
+    
+  </script>
+
+  <link rel="stylesheet" href="/css/all.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+</body>
+</html>
