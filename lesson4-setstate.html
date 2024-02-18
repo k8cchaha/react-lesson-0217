@@ -14,6 +14,7 @@
 
   <script type="text/babel">
     const App2 = (props) => {
+      console.log('Hello App2')
       const { useState } = React
       const [todo, setTodo] = useState("")
       const [list, setList] = useState([])
@@ -47,6 +48,7 @@
     }
 
     const App = () => {
+      console.log('Hello App')
       const { useState } = React
       const [num, setNum] = useState(0)
       const handleAdd = () => {
